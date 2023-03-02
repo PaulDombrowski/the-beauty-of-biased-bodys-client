@@ -54,15 +54,6 @@ function AddPicturesPage(props) {
     <div className="AddMemePage">
       <form onSubmit={handleSubmit}>
         <input type="file" onChange={(e) => handleFileUpload(e)} />
-        {/* <input type="file" onChange={(e) => handleFileUpload(e)} />
-        <input type="file" onChange={(e) => handleFileUpload(e)} />
-        <input type="file" onChange={(e) => handleFileUpload(e)} />
-        <input type="file" onChange={(e) => handleFileUpload(e)} />
-        <input type="file" onChange={(e) => handleFileUpload(e)} />
-        <input type="file" onChange={(e) => handleFileUpload(e)} />
-        <input type="file" onChange={(e) => handleFileUpload(e)} />
-        <input type="file" onChange={(e) => handleFileUpload(e)} />
-        <input type="file" onChange={(e) => handleFileUpload(e)} /> */}
         <input type="text" name="title" placeholder="Title" value={title} onChange={handleTitleChange} />
         <select name="source" value={source} onChange={handleSourceChange} >
           <option value="" disabled selected hidden>Choose a source</option>
