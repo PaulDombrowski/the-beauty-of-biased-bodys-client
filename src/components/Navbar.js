@@ -15,6 +15,10 @@ function Navbar() {
       <Link to="/">
         <button>Home</button>
       </Link>
+
+      <Link to="/add-picture">
+        <button>Add picture</button>
+      </Link>
  
       {/*    UPDATE     */}
       {isLoggedIn && (
@@ -30,6 +34,7 @@ function Navbar() {
         <>
           <Link to="/signup"> <button>Sign Up</button> </Link>
           <Link to="/login"> <button>Login</button> </Link>
+          
         </>
       )}
     </nav>
