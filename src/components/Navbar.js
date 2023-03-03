@@ -19,6 +19,11 @@ function Navbar() {
       <Link to="/add-picture">
         <button>Add picture</button>
       </Link>
+
+      <Link to="/pictures">
+        <button>List of all pictures</button>
+      </Link>
+
  
       {/*    UPDATE     */}
       {isLoggedIn && (

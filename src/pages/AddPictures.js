@@ -1,68 +1,84 @@
-import { useState } from "react"
-import axios from "axios"
-import { useNavigate } from "react-router-dom"
+import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function AddPicturesPage(props) {
-  const [title, setTitle] = useState("")
-  const [source, setSource] = useState("")
-  const [prompt, setPrompt] = useState("")
-  const [imageUrl, setImageUrl] = useState("")
+  const [title, setTitle] = useState("");
+  const [source, setSource] = useState("");
+  const [prompt, setPrompt] = useState("");
+  const [imageUrls, setImageUrls] = useState([])
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleTitleChange = (e) => {
-    setTitle(e.target.value)
-  }
+    setTitle(e.target.value);
+  };
 
   const handleSourceChange = (e) => {
-    setSource(e.target.value)
-  }
+    setSource(e.target.value);
+  };
 
   const handlePromptChange = (e) => {
-    console.log(e.target.value)
-    setPrompt(e.target.value)
-  }
+    setPrompt(e.target.value);
+  };
 
   const handleFileUpload = (e) => {
     const uploadData = new FormData();
- 
-    // imageUrl => this name has to be the same as in the model since we pass
-    // req.body to .create() method when creating a new movie in '/api/movies' POST route
-    uploadData.append("imageUrl", e.target.files[0]);
- 
+
+    const fileListArr = Array.from(e.target.files)
+
+    fileListArr.forEach((file) => {
+      uploadData.append(`imageUrl`, file, file.name);
+    })
+
     axios.post("http://localhost:5005/api/upload", uploadData)
       .then(response => {
-        console.log("response is", response)        // response carries "fileUrl" which we can use to update the state
-        setImageUrl(response.data.imageUrl);
+        setImageUrls(response.data.imageUrls);
       })
       .catch(err => console.log("Error while uploading the file: ", err));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault()
-
-    const requestBody = { title, source, prompt, imageUrl }
+    console.log("URLS: ", imageUrls)
+    for (let imageUrl of imageUrls) {
+      const requestBody = { title, source, prompt, imageUrl }
     
-      axios.post("http://localhost:5005/api/pictures", requestBody)
-      .then(response => {
-        navigate("/")
-      })
-      .catch(err => console.log(err)) 
+      handleAxiosCall(requestBody)
+    }
+  }
+
+  async function handleAxiosCall (requestBody) {
+    try {
+      const response = await axios.post("http://localhost:5005/api/pictures", requestBody)
+      console.log("response: ", response)
+    } catch (err) {
+      console.log(err)
+    } 
   }
 
   return (
-    <div className="AddMemePage">
-      <form onSubmit={handleSubmit}>
-        <input type="file" onChange={(e) => handleFileUpload(e)} />
-        <input type="text" name="title" placeholder="Title" value={title} onChange={handleTitleChange} />
-        <select name="source" value={source} onChange={handleSourceChange} >
-          <option value="" disabled selected hidden>Choose a source</option>
+    <div className="AddPictureForm">
+      <form onSubmit={(e) => handleSubmit(e)}>
+        <input type="file" onChange={handleFileUpload} multiple />
+        <input
+          type="text"
+          name="title"
+          placeholder="Title"
+          value={title}
+          onChange={handleTitleChange}
+        />
+        <select name="source" value={source} onChange={handleSourceChange}>
+          <option value="" disabled selected hidden>
+            Choose a source
+          </option>
           <option value="DALL.E 2">DALL.E 2</option>
           <option value="DeepAI">DeepAI</option>
-
         </select>
-        <select name="prompt" value={prompt} onChange={handlePromptChange} >
-          <option value="" disabled selected hidden>Choose a prompt</option>
+        <select name="prompt" value={prompt} onChange={handlePromptChange}>
+          <option value="" disabled selected hidden>
+            Choose a prompt
+          </option>
           <option value="woman">woman</option>
           <option value="lesbian">lesbian</option>
           <option value="man">man</option>
@@ -71,11 +87,13 @@ function AddPicturesPage(props) {
           <option value="trans man">trans man</option>
           <option value="femininity">femininity</option>
           <option value="masculinity">masculinity</option>
+          <option value="pupil">pupil</option>
+           <option value="couple">couple</option>
         </select>
-        <button type="submit">Add picture</button>
+        <button type="submit">Add pictures</button>
       </form>
     </div>
-  )
+  );
 }
 
-export default AddPicturesPage
+export default AddPicturesPage;
