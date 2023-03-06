@@ -24,6 +24,14 @@ function Navbar() {
         <button>List of all pictures</button>
       </Link>
 
+      <Link to="/GetAShirt">
+        <button>Get a shirt</button>
+      </Link>
+      
+      <Link to="/comparepictures">
+        <button>Compare Pictures</button>
+      </Link>
+
  
       {/*    UPDATE     */}
       {isLoggedIn && (

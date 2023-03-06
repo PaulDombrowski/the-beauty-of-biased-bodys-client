@@ -1,12 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import PictureDetails from "./Detailsview";
 
 function AddPicturesPage(props) {
   const [title, setTitle] = useState("");
   const [source, setSource] = useState("");
   const [prompt, setPrompt] = useState("");
   const [imageUrls, setImageUrls] = useState([])
+
 
   const navigate = useNavigate();
 
@@ -21,6 +24,18 @@ function AddPicturesPage(props) {
   const handlePromptChange = (e) => {
     setPrompt(e.target.value);
   };
+
+ //get pictures for our list//
+  const [pictures, setPictures] = useState([]);
+
+  useEffect(() => {
+    axios.get('http://localhost:5005/api/allPictures')
+      .then(response => setPictures(response.data))
+      .catch(error => console.log(error));
+  }, []);
+
+
+
 
   const handleFileUpload = (e) => {
     const uploadData = new FormData();
@@ -57,6 +72,19 @@ function AddPicturesPage(props) {
     } 
   }
 
+
+  async function handleDelete(id) {
+    try {
+      await axios.delete(`http://localhost:5005/api/deletepicture/${id}`);
+      // Wenn das Löschen erfolgreich war, aktualisieren Sie die Liste der Bilder
+      const response = await axios.get("http://localhost:5005/api/allPictures");
+      setPictures(response.data);
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+
   return (
     <div className="AddPictureForm">
       <form onSubmit={(e) => handleSubmit(e)}>
@@ -92,7 +120,38 @@ function AddPicturesPage(props) {
         </select>
         <button type="submit">Add pictures</button>
       </form>
+
+
+      <div>
+      <table>
+        <tbody>
+          {pictures.map(row => (
+            <tr key={row._id}>
+            <Link to={`details/${row._id}`}>
+              <td>{row.source}</td>
+              <td>{row.title}</td>
+              <td>{row.prompt}</td>
+              <td>{row.createdAt}</td>
+              </Link>
+              <td>
+               <button onClick={() => handleDelete(row._id)}>Delete</button>
+             </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
+
+
+
+
+
+
+
+    </div>
+
+ 
+
   );
 }
 
