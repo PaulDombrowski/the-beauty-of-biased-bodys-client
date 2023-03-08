@@ -29,7 +29,7 @@ function LoginPage(props) {
         
         storeToken(response.data.authToken);
         authenticateUser();
-        navigate("/");
+        navigate("/add-picture");
       })
       .catch((error) => {
       	const errorDescription = error.response.data.message;

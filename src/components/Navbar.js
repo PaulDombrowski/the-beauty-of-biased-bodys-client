@@ -32,6 +32,19 @@ function Navbar() {
         <button>Compare Pictures</button>
       </Link>
 
+      <Link to="/videoplayer">
+        <button>Compare Pictures</button>
+      </Link>
+
+      <Link to="/NftGallery">
+        <button>Nft Gallery</button>
+      </Link>
+      <Link to="/home">
+        <button>home</button>
+      </Link>
+
+
+
  
       {/*    UPDATE     */}
       {isLoggedIn && (

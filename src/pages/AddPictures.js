@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { AuthContext } from "../context/auth.context";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
@@ -10,7 +11,7 @@ function AddPicturesPage(props) {
   const [prompt, setPrompt] = useState("");
   const [imageUrls, setImageUrls] = useState([])
 
-
+  const {user} = useContext(AuthContext)
   const navigate = useNavigate();
 
   const handleTitleChange = (e) => {
@@ -115,6 +116,8 @@ function AddPicturesPage(props) {
           <option value="trans man">trans man</option>
           <option value="femininity">femininity</option>
           <option value="masculinity">masculinity</option>
+          <option value="straight woman">straight woman</option>
+          <option value="straight man">straight man</option>
           <option value="pupil">pupil</option>
            <option value="couple">couple</option>
         </select>
@@ -125,7 +128,7 @@ function AddPicturesPage(props) {
       <div>
       <table>
         <tbody>
-          {pictures.map(row => (
+          {user ? <>{pictures.map(row => (
             <tr key={row._id}>
             <Link to={`details/${row._id}`}>
               <td>{row.source}</td>
@@ -137,12 +140,12 @@ function AddPicturesPage(props) {
                <button onClick={() => handleDelete(row._id)}>Delete</button>
              </td>
             </tr>
-          ))}
+          ))}</> : <>you need to log in</>}
         </tbody>
       </table>
     </div>
 
-
+            
 
 
 
