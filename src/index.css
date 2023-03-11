@@ -5,66 +5,557 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  
 }
 
+
+
+.home {
+  animation: bg-animation 14s ease infinite;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Setzen Sie die Höhe auf die volle Viewport-Höhe */
+}
+
+@keyframes bg-animation {
+  0% {
+    background-color: #ffc2d9;
+  }
+  50% {
+    background-color: #ff0062;
+  }
+  100% {
+    background-color:  #ffc9de;
+  }
+}
 
 .video-box {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 0;
-  height: 100vh;
-}
+  width: 70%;
 
-@media (max-width: 768px) {
-  .video-box {
-    flex-wrap: wrap;
-    height: auto;
-  }
-  .video {
-    flex-basis: 50%; /* geändert, um zwei Videos pro Zeile anzuzeigen */
-    margin-bottom: 2em;
-  }
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 0 auto; /* Zentriert die Flexbox horizontal auf der Seite */
+  
 }
 
 .video {
-  flex-basis: 25%;
   position: relative;
+  margin: 0;
   overflow: hidden;
-}
-
-.video video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s ease-in-out, filter 0.5s ease-in-out;
+  width: 25%;
+  padding-bottom: 56.25%;
+  margin: 0;
+  cursor: pointer;
+  transition: filter 0.5s, transform 0.5s; /* Fügen Sie den Transformationsübergang hinzu */
 }
 
 .video:hover video {
-  transform: scale(1.1);
   filter: blur(5px);
-}
-
-.videotext {
-  position: absolute;
-  top: 30%;
-  left: 10%;
-  font-family: Arial Black, sans-serif;
-  font-size: 5em;
-  font-style: italic;
-  color: red;
-  text-align: left;
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
-  z-index: 2;
+  transform: scale(1.1); /* Zoomen Sie das Video heran */
 }
 
 .video:hover .videotext {
   opacity: 1;
+  background-color: rgba(255, 236, 254, 0.527); /* Farbe mit 70% Deckkraft */}
+
+.video video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: filter 0.5s, transform 0.5s; /* Fügen Sie den Transformationsübergang hinzu */
+}
+
+.videotext {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  color: red;
+  font-family: Arial, sans-serif;
+  font-size: 2.5rem; /* Größerer Text */
+  font-style: italic;
+  font-weight: bold;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+@media (max-width: 1200px) {
+  .video {
+    width: 50%; /* Ändern Sie dies auf den prozentualen Wert, den Sie wünschen */
+    padding-bottom: 56.25%;
+  }
+}
+
+@media (max-width: 768px) {
+  .video {
+    width: 100%; /* Ändern Sie dies auf den prozentualen Wert, den Sie wünschen */
+    padding-bottom: 56.25%;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1200px) {
+  .video-box > .video:nth-child(odd) {
+    margin-right: 2%; /* Fügen Sie einen rechten Abstand zwischen den ungeraden Videos hinzu */
+  }
+  .video-box > .video:nth-child(even) {
+    margin-left: 2%; /* Fügen Sie einen linken Abstand zwischen den geraden Videos hinzu */
+  }
+}
+
+
+/* Tabellendesign */
+
+
+
+.all-pictures {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: bg-animation 14s ease infinite;
+}
+
+@keyframes bg-animation {
+  0% {
+    background-color: #ffc9de;
+  }
+  50% {
+    background-color: #faa6c6;
+  }
+  100% {
+    background-color:  #ffc9de;
+  }
+}
+
+
+
+.database-items {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.picture-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.picture-row {
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  color: black;
+  text-decoration: none;
+  transition: all 0.5s ease;
+}
+
+.picture-row:hover {
+  background-color: #f9f9f9;
+}
+
+.picture-row:hover td {
+  text-decoration: underline;
+}
+
+.picture-row td {
+  width: 25%;
+  text-align: center;
+}
+
+.picture-title {
+  
+    color: black;
+    text-decoration: none;
+  
+}
+
+.picture-table a {
+  color: black;
+  text-decoration: none;
+}
+
+
+
+/* nft table */
+
+
+.all-pictures {
+  display: flex;
+  flex-direction: column;
+justify-content: space-around;
+  align-items: center;
+  padding-top: 4vw;
+
+}
+
+.nft-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  margin-top: 10vh;
+  margin-bottom: 10vh;
+}
+
+.nft-item {
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  color: black;
+  text-decoration: none;
+  transition: all 0.5s ease;
+}
+
+.nft-item:hover {
+  background-color: #f9f9f9;
+  text-decoration: underline;
+}
+
+.nft-item td {
+
+  text-align: center;
+  padding-left: 2vh;
+  padding-right: 2vh;
+}
+
+
+.nft-token-address,
+.nft-token-id,
+.nft-chain {
+  font-weight: normal;
+}
+
+
+/* BuyShirt */
+
+
+.contact-container {
+  padding-top: 3vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  animation: bg-animation 14s ease infinite;
+}
+
+@keyframes bg-animation {
+  0% {
+    background-color: #ffc9de;
+  }
+  50% {
+    background-color: #ff74a9;
+  }
+  100% {
+    background-color:  #ffc9de;
+  }
+}
+
+.images-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+}
+
+.images-container img {
+  max-width: 30%;
+  height: auto;
+  margin: 10px;
+  transition: transform 0.3s ease;
+  border-radius: 30px;
+}
+
+.images-container img:hover {
+  transform: scale(1.1);
+}
+form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  margin: 10px;
+  padding: 20px;
+  border-radius: 20px;
+  background-color: transparent;
+}
+
+form label {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-family: Arial;
+  color: #ff0000;
+  font-style: italic;
+}
+
+form input,
+form textarea {
+  width: 100%;
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 3px solid #ff0000;
+  border-radius: 30px;
+  box-sizing: border-box;
+  font-size: 18px;
+  background-color: rgba(255, 255, 255, 0.5);
+  outline: none;
+  color: #ff0000;
+  font-family: Arial;
+}
+
+form input[type="submit"] {
+  background-color: #ff0000;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border: none;
+  border-radius: 30px;
+  padding: 15px;
+  font-size: 18px;
+  font-family: Arial;
+}
+
+form input[type="submit"]:hover {
+  background-color: #fff;
+  color: #ff0000;
+}
+
+form input:focus,
+form textarea:focus {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+@media screen and (max-width: 768px) {
+  .contact-container {
+    flex-direction: column;
+    height: auto;
+  }
+  
+  .images-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  form {
+    margin: 10px 0;
+  }
 }
 
 
 
 
-/* Tabellendesign */
+
+/* moving cricle */
+.circle {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px; /* Größe des Kreises erhöht */
+  height: 150px; /* Größe des Kreises erhöht */
+  background-color: red;
+  border-radius: 50%;
+  z-index: 9999;
+  padding: 10px; /* Abstand zum Text erhöht */
+}
+
+.circle-text {
+  color: white;
+  font-size: 18px;
+  font-style: italic; /* Text wird kursiv */
+  font-weight: bold;
+  text-align: center;
+}
+
+
+
+/*detailsview*/ 
+
+.detailsview {
+  animation: bg-animation 14s ease infinite;
+  padding-bottom: 10vh;
+}
+
+@keyframes bg-animation {
+  0% {
+    background-color: #ffd4e4;
+  }
+  50% {
+    background-color: #ffa1c5;
+  }
+  100% {
+    background-color:  #fbd2e2;
+  }
+}
+
+
+.picture-details {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  animation: bg-animation 14s ease infinite;
+}
+
+
+
+
+.picture-details img {
+  border-radius: 8%;
+  max-width: 600px;
+  margin-top: 10vh;
+}
+
+
+.picture-details h2 {
+  font-size: 2em;
+  color: red;
+}
+
+
+.picture-details p {
+  font-size: 1.2em;
+  color: red;
+}
+
+
+
+/* design elemente */
+
+h1 {
+  font-size: 3em;
+  font-family: Arial, sans-serif;
+  font-style: italic;
+  color: red;
+  border: 4px solid red;
+  border-radius: 30px;
+  padding: 20px;
+  transition: background-color 0.5s ease;
+  background-color: #ffe3ee;
+}
+
+h1:hover {
+  background-color:  #ffb6d2;
+
+}
+
+
+
+/* button design  */
+
+.button {
+  background-color: transparent;
+  border: 4px solid red;
+  border-radius: 20px;
+  color: red;
+  cursor: pointer;
+  font-family: Arial, sans-serif;
+  font-size: 28px;
+  font-style: italic;
+  padding: 20px 50px;
+  transition: color 0.3s, background-position 0.3s ease-in-out;
+  background-size: 200% 100%;
+  background-image: linear-gradient(to right, red 50%, transparent 50%);
+  background-position: right bottom;
+}
+
+.button:hover {
+  color: white;
+  background-position: left bottom;
+}
+
+
+
+/*header-video*/
+
+.head-title-container {
+  display: flex;
+  justify-content: flex-start;
+  
+
+}
+
+.head-title-video {
+  /* border: 8px solid red; */
+  height: 16vh;
+  border-radius: 20px;
+  width:  40vw; 
+  object-fit: cover;
+
+}
+
+
+
+/*compare design*/ 
+
+.whole-list {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: row;
+  padding-top: 5vh; 
+}
+ 
+.my-picture-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  padding: 10px;
+  max-width: 40vw;
+}
+
+.my-picture {
+ 
+  width: 35vw;
+  border-radius: 20px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+.my-picture:last-child {
+  margin-right: 0;
+}
+
+
+.bothdropdown {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30vh;
+
+  
+
+}
+
+
+
+
+.my-dropdown {
+
+  padding: 30px;
+  font-family: Arial, sans-serif;
+  font-style: bold;
+  font-size: 2.3em;
+  color: rgb(8, 7, 7);
+  background-color: transparent;
+  border: 4px solid red;
+  border-radius: 20px;
+ 
+ 
+}
+
 

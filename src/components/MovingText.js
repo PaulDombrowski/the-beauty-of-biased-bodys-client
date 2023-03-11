@@ -1,53 +1,51 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 
-function MovingText() {
-  const textRef = useRef(null);
+
+const MovingCircle = () => {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [direction, setDirection] = useState({ x: 1, y: 1 });
 
   useEffect(() => {
-    const text = textRef.current;
-    let x = 0;
-    let y = 0;
-    let dx = 5;
-    let dy = 5;
-    const radius = 150;
-    const centerX = window.innerWidth / 2;
-    const centerY = window.innerHeight / 2;
-    const interval = setInterval(() => {
-      x += dx;
-      y += dy;
-      if (x + radius > window.innerWidth || x - radius < 0) {
-        dx = -dx;
-      }
-      if (y + radius > window.innerHeight || y - radius < 0) {
-        dy = -dy;
-      }
-      text.style.left = `${centerX + x}px`;
-      text.style.top = `${centerY + y}px`;
-    }, 30);
+    const moveCircle = () => {
+      const windowWidth = window.innerWidth;
+      const windowHeight = window.innerHeight;
+      const circleWidth = 100;
+      const circleHeight = 100;
 
-    return () => clearInterval(interval);
-  }, []);
+      if (position.x + circleWidth >= windowWidth) {
+        setDirection(prev => ({ ...prev, x: -1 }));
+      } else if (position.x <= 0) {
+        setDirection(prev => ({ ...prev, x: 1 }));
+      }
 
-  const style = {
-    position: 'fixed',
-    width: '150px',
-    height: '150px',
-    borderRadius: '50%',
-    backgroundColor: 'rgba(255, 0, 0, 0.5)',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontSize: '24px',
-    fontWeight: 'bold',
-    color: 'white',
-    zIndex: '999',
-  };
+      if (position.y + circleHeight >= windowHeight) {
+        setDirection(prev => ({ ...prev, y: -1 }));
+      } else if (position.y <= 0) {
+        setDirection(prev => ({ ...prev, y: 1 }));
+      }
+
+      setPosition(prev => ({
+        x: prev.x + direction.x,
+        y: prev.y + direction.y,
+      }));
+    };
+
+    const intervalId = setInterval(moveCircle, 10);
+
+    return () => clearInterval(intervalId);
+  }, [position, direction]);
 
   return (
-    <div className="moving-text" style={style} ref={textRef}>
-      <span>Rotierender Text</span>
+    <div
+      className="circle"
+      style={{
+        left: position.x,
+        top: position.y,
+      }}
+    >
+      <span className="circle-text">The beauty of biased bodies</span>
     </div>
   );
-}
+};
 
-export default MovingText;
+export default MovingCircle;

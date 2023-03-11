@@ -18,19 +18,20 @@ import MasculinityFemininity from "./pages/CompareMasculinityAndFemininity";
 import PupilCouple from "./pages/CampareGenderlessPrompts";
 import NftCollection from "./components/NftGallery";
 import VideoBox from "./pages/Home";
+import GetRandom from "./pages/GetRandomPicture";
 
 
 function App() {
   return (
     <div className="App">
 
-  <Navbar />
+  {/* <Navbar /> */}
 
     <Routes>      
         {/* <Route path="/signup" element={<IsAnon> <SignupPage /> </IsAnon>} /> */}
         <Route path="/" element={<VideoBox/>}/>
         <Route path="/login" element={<IsAnon> <LoginPage /> </IsAnon>} />
-        <Route path="/add-picture" element={<AddPicturesPage />} />
+        <Route path="/addpicture" element={<AddPicturesPage />} />
         <Route path="/pictures" element={<AllPictures />} />
         <Route path="/pictures/details/:id" element={<DetailsView />}/>
         <Route path="/GetAShirt" element={<BuyShirt />}/>
@@ -45,6 +46,9 @@ function App() {
         <Route path="/PupilCouple" element={<PupilCouple />}/>
         <Route path="/NftGallery" element={<NftCollection/>}/>
         <Route path="/" element={<VideoBox/>}/>
+        <Route path="/getrandom" element={<GetRandom/>}/>
+
+
 
 
 

@@ -32,28 +32,23 @@ function NFTs() {
 
   return (
     <div>
-    
-
       {nftData && (
-        <table>
+        <table className="nft-table">
           <tbody>
             {nftData.map((nft) => (
               <tr key={nft.token_id} className="nft-item" onClick={() => handleClick(JSON.parse(nft.metadata || '{}').external_url)}>
-                <td>Name: {nft.name}</td>
-                <td>Token_Adress: {nft.token_address}</td>
-                <td>Token_id: {nft.token_id}</td>
-                <td>Chain: Polygon</td>
-
-              
-
+              <td className="nft-buy">BUY NOW</td>
+                <td className="nft-name">Name: {nft.name}</td>
+                <td className="nft-token-address">Token_Address: {nft.token_address}</td>
+                <td className="nft-token-id">Token_Id: {nft.token_id}</td>
+                <td className="nft-chain">Chain: Polygon</td>
               </tr>
             ))}
           </tbody>
         </table>
       )}
-     
     </div>
   );
-}
+            }
 
 export default NFTs;
